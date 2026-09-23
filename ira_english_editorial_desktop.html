@@ -211,8 +211,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .tear-earth i:first-child { background: #e9dfcd; opacity: .55; }
 
 /* ---------- Nav ---------- */
-.scroll-progress { position: fixed; inset: 0 0 auto; z-index: 95; height: 3px; pointer-events: none; }
-.scroll-progress span { display: block; height: 100%; background: var(--wine); transform: scaleX(0); transform-origin: left center; }
 .nav {
   position: fixed;
   z-index: 90;
@@ -682,6 +680,162 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
 .footer-grid p { margin: 0; }
 .footer-grid a { color: var(--rose); text-decoration: none; }
 
+/* ---------- Game layer: colours taken from the first screen ---------- */
+:root { --olive: #2d302c; --olive-2: #3a3f39; --sage: #a9ba9b; }
+.skip-link { position: fixed; z-index: 300; left: 16px; top: -80px; padding: 12px 18px; color: var(--cream); background: var(--olive); border-radius: 12px; font-weight: 600; text-decoration: none; transition: top .2s ease; }
+.skip-link:focus { top: 16px; }
+
+/* Buttons press like keys. */
+.btn-dark { box-shadow: 0 4px 0 #000; }
+.btn-dark:hover { box-shadow: 0 6px 0 #000; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,.8); transition-duration: .06s; }
+.btn:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+.btn-ghost { color: var(--ink); background: transparent; box-shadow: inset 0 0 0 1px rgba(38,33,29,.22); }
+.btn-ghost:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+kbd { font-family: var(--sans); }
+
+/* HUD */
+.hud {
+  position: fixed;
+  z-index: 85;
+  left: 50%;
+  bottom: 18px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--cream);
+  background: rgba(45,48,44,.95);
+  border: 1px solid rgba(244,236,223,.14);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transform: translate(-50%, 0);
+  transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+}
+.hud.is-hidden { opacity: 0; transform: translate(-50%, 150%); pointer-events: none; }
+.hud-map { min-height: 44px; padding: 0 14px; display: flex; align-items: center; gap: 14px; color: inherit; background: transparent; border: 0; border-radius: 12px; cursor: pointer; text-align: left; }
+.hud-map:hover { background: rgba(244,236,223,.08); }
+.hud-label { color: var(--sage); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.hud-label b { color: var(--cream); font-weight: 600; }
+.hud-title { min-width: 118px; font-family: var(--display); font-size: 1.2rem; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+.hud-bar { display: flex; gap: 3px; }
+.hud-bar i { width: 14px; height: 6px; background: rgba(244,236,223,.18); border-radius: 2px; transition: background .3s ease; }
+.hud-bar i.done { background: var(--sage); }
+.hud-bar i.now { background: var(--rose); }
+.hud-cta { min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; gap: 8px; color: var(--ink); background: var(--cream); border-radius: 12px; box-shadow: 0 3px 0 rgba(0,0,0,.45); font-size: .86rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.hud-cta:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,.45); }
+
+/* Map (menu) */
+.map-count { margin: 14px 0 0; color: var(--ink-3); font-size: .86rem; }
+.map-count b { color: var(--ink); }
+.menu-sheet nav a { grid-template-columns: 40px 1fr auto; gap: 0 8px; }
+.menu-sheet nav em { color: var(--ink-3); font-size: .74rem; font-style: normal; font-weight: 600; white-space: nowrap; }
+.menu-sheet nav a.visited span { color: #6f8463; }
+.menu-sheet nav a.visited em::before { content: "✓ открыто"; color: #6f8463; }
+.menu-sheet nav a.current em::before { content: "вы здесь"; padding: 5px 10px; color: var(--cream); background: var(--olive); border-radius: 999px; }
+
+/* Achievements */
+.toasts { position: fixed; z-index: 150; top: 88px; right: 16px; width: min(340px, calc(100% - 32px)); display: grid; gap: 10px; pointer-events: none; }
+.toast { padding: 12px 16px 12px 12px; display: grid; grid-template-columns: 46px 1fr; gap: 12px; align-items: center; color: var(--cream); background: var(--olive); border: 1px solid rgba(169,186,155,.4); border-radius: 16px; box-shadow: 0 18px 40px rgba(0,0,0,.35); animation: toastIn .55s cubic-bezier(.16,1,.3,1) both; }
+.toast.out { animation: toastOut .35s ease forwards; }
+.toast-icon { width: 46px; height: 46px; display: grid; place-items: center; color: var(--olive); background: var(--sage); border-radius: 12px; box-shadow: 0 3px 0 rgba(0,0,0,.35); font-size: 1.25rem; font-weight: 700; transform: rotate(-5deg); }
+.toast small { display: block; color: var(--sage); font-size: .68rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.toast b { display: block; margin-top: 2px; font-family: var(--display); font-size: 1.3rem; font-weight: 400; line-height: 1.05; text-transform: uppercase; }
+.toast .t { display: block; margin-top: 2px; color: rgba(244,236,223,.75); font-size: .82rem; line-height: 1.3; }
+@keyframes toastIn { from { opacity: 0; transform: translateX(40px) scale(.96); } }
+@keyframes toastOut { to { opacity: 0; transform: translateX(40px); } }
+
+/* Playable scene */
+.demo { margin-top: 120px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: center; }
+.demo[hidden] { display: none; }
+.demo-head h3 { color: var(--cream); font-size: clamp(2.2rem, 3.6vw, 3.4rem); }
+.demo-head h3 em { color: var(--sage); font-style: normal; }
+.demo-head > p:not(.kicker) { margin: 22px 0 0; color: rgba(244,236,223,.74); }
+@media (hover: none) { .kbd-hint { display: none; } }
+.demo-head kbd { padding: 1px 7px; color: var(--olive); background: var(--sage); border-radius: 5px; box-shadow: 0 2px 0 rgba(0,0,0,.4); font-size: .82em; font-weight: 600; }
+.game-window { position: relative; overflow: hidden; background: var(--olive); border: 1px solid rgba(244,236,223,.16); border-radius: 22px; box-shadow: 0 30px 70px rgba(0,0,0,.45); }
+.game-window::before { content: ""; position: absolute; inset: 0; background-image: var(--scene, none); background-position: center; background-size: cover; filter: blur(5px) saturate(.6); opacity: .3; transform: scale(1.12); }
+.game-window::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(45,48,44,.35), rgba(45,48,44,.94) 50%); }
+.game-window > * { position: relative; z-index: 1; }
+.game-bar { padding: 14px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; color: var(--sage); border-bottom: 1px solid rgba(244,236,223,.12); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.game-stats { display: flex; gap: 16px; }
+.game-stats b { display: inline-block; color: var(--cream); }
+.game-stats b.bump { animation: bump .6s ease; }
+@keyframes bump { 35% { color: var(--sage); transform: scale(1.5); } }
+.game-scene { min-height: 420px; padding: 24px 22px 22px; display: flex; flex-direction: column; }
+.npc { display: flex; align-items: center; gap: 12px; }
+.npc-avatar { width: 48px; height: 48px; display: grid; place-items: center; color: var(--olive); background: var(--cream); border-radius: 50%; box-shadow: 0 0 0 3px rgba(169,186,155,.55); font-family: var(--display); font-size: 1.45rem; }
+.npc b { display: block; font-size: 1rem; }
+.npc small { color: rgba(244,236,223,.6); font-size: .82rem; }
+.npc-line { min-height: 110px; margin: 16px 0 0; padding: 18px 20px; color: var(--ink); background: var(--cream); border-radius: 4px 18px 18px 18px; cursor: pointer; font-size: 1.12rem; font-weight: 500; line-height: 1.45; }
+.npc-line.typing::after { content: ""; display: inline-block; width: 8px; height: 1.05em; margin-left: 3px; vertical-align: -2px; background: var(--wine); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.demo-choices { margin-top: 14px; display: grid; gap: 8px; }
+.demo-choices button { min-height: 50px; padding: 10px 14px; display: flex; align-items: center; gap: 12px; color: var(--cream); background: rgba(244,236,223,.06); border: 1px solid rgba(244,236,223,.2); border-radius: 12px; cursor: pointer; font-size: 1rem; text-align: left; transition: background .2s ease, border-color .2s ease, transform .2s ease; animation: choiceIn .4s cubic-bezier(.16,1,.3,1) both; }
+.demo-choices button:nth-child(2) { animation-delay: .06s; }
+.demo-choices button:nth-child(3) { animation-delay: .12s; }
+.demo-choices button:hover:not(:disabled) { background: rgba(244,236,223,.13); border-color: var(--sage); transform: translateX(4px); }
+.demo-choices button:disabled { opacity: .38; cursor: default; }
+.demo-choices kbd { flex: none; width: 26px; height: 26px; display: grid; place-items: center; color: var(--olive); background: var(--sage); border-radius: 6px; box-shadow: 0 2px 0 rgba(0,0,0,.4); font-size: .8rem; font-weight: 600; }
+@keyframes choiceIn { from { opacity: 0; transform: translateY(8px); } }
+.demo-hint { min-height: 1.5em; margin: 14px 0 0; color: var(--sage); font-size: .92rem; }
+.demo-hint.warn { color: var(--rose); }
+.demo-end { margin-top: auto; padding-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+.demo-end[hidden] { display: none; }
+.demo-end .link-arrow { color: var(--cream); }
+
+/* Levels as a difficulty select */
+.levels-grid article { transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease; }
+.levels-grid article:hover { transform: translateY(-4px); box-shadow: 0 16px 30px rgba(38,33,29,.12); }
+.level-pick { margin-top: 16px; padding: 0 0 2px; align-self: flex-start; color: var(--ink); background: none; border: 0; border-bottom: 1px solid currentColor; cursor: pointer; font-size: .92rem; font-weight: 600; }
+.level-pick::before { content: "▶"; margin-right: 8px; color: #e27c99; font-size: .7em; vertical-align: 1px; }
+
+/* Diagnostic as character creation */
+.quiz-head { display: none; }
+.is-stepped .quiz-head { margin-bottom: 26px; display: flex; align-items: center; gap: 16px; }
+.quiz-head span { color: var(--ink-3); font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+.quiz-bar { flex: 1; height: 8px; display: flex; gap: 4px; }
+.quiz-bar i { flex: 1; background: rgba(38,33,29,.12); border-radius: 3px; transition: background .3s ease; }
+.quiz-bar i.done { background: var(--olive); }
+.quiz-bar i.now { background: #e27c99; }
+.quiz-nav { display: none; }
+.is-stepped .quiz-nav { margin-top: 8px; display: flex; gap: 10px; }
+.is-stepped .quiz-nav .btn { flex: 1; border-radius: 14px; }
+.is-stepped .quiz-nav .btn-ghost { flex: 0 0 auto; }
+.is-stepped fieldset { margin-bottom: 18px; }
+.is-stepped fieldset:not(.is-active) { display: none; }
+.is-stepped fieldset.is-active { min-height: 200px; animation: stepIn .45s cubic-bezier(.16,1,.3,1); }
+.is-stepped legend { font-size: 1.45rem; }
+.is-stepped .choices label span { min-height: 52px; padding: 12px 20px; font-size: 1rem; }
+.is-stepped .form-submit, .is-stepped.is-last #quiz-next { display: none; }
+.is-stepped.is-last .form-submit { display: inline-flex; }
+.is-done .quiz-head, .is-done fieldset, .is-done .quiz-nav { display: none !important; }
+.is-done .form-result { margin-top: 0; }
+@keyframes stepIn { from { opacity: 0; transform: translateX(24px); } }
+.result-summary { margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+.result-summary li { padding: 6px 12px; background: rgba(255,255,255,.55); border-radius: 999px; font-size: .82rem; font-weight: 500; }
+
+@media (max-width: 900px) {
+  .demo { margin-top: 90px; grid-template-columns: 1fr; gap: 30px; }
+}
+@media (max-width: 600px) {
+  .hud { left: 10px; right: 10px; bottom: 10px; justify-content: space-between; transform: none; }
+  .hud.is-hidden { transform: translateY(150%); }
+  .hud-map { padding: 0 10px; gap: 10px; }
+  .hud-label span { display: none; }
+  .hud-title { min-width: 0; font-size: 1.05rem; }
+  .hud-bar { display: none; }
+  .hud-cta { padding: 0 14px; }
+  .toasts { top: 76px; right: 10px; width: calc(100% - 20px); }
+  .game-scene { min-height: 440px; padding: 18px 14px 16px; }
+  .npc-line { font-size: 1.02rem; padding: 14px 16px; }
+  .game-bar { padding: 12px 14px; }
+  .is-stepped legend { font-size: 1.25rem; }
+  .is-stepped .quiz-nav .btn { padding-inline: 16px; }
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   .side-scribble { display: none; }
@@ -776,7 +930,8 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
     </style>
   </head>
   <body>
-    <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress"></span></div>
+    <a class="skip-link" href="#approach">Перейти к содержанию</a>
+    <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
 
     <header class="nav" id="nav">
       <a class="brand" href="#top" aria-label="В начало"><b>Ира Болачкова</b><span>English Quest Studio</span></a>
@@ -792,15 +947,16 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
     <div class="menu-panel" id="site-menu" hidden>
       <button class="menu-backdrop" type="button" data-menu-close aria-label="Закрыть меню"></button>
       <aside class="menu-sheet" role="dialog" aria-modal="true" aria-labelledby="menu-title" tabindex="-1">
-        <div class="menu-head"><p id="menu-title">Навигация</p><button id="menu-close" type="button" aria-label="Закрыть меню">×</button></div>
+        <div class="menu-head"><p id="menu-title">Карта</p><button id="menu-close" type="button" aria-label="Закрыть меню">×</button></div>
+        <p class="map-count" id="map-count">Главы открываются, пока вы листаете</p>
         <nav aria-label="Все разделы">
-          <a href="#approach"><span>01</span><b>Мой подход</b></a>
-          <a href="#quests"><span>02</span><b>Авторские квесты</b></a>
-          <a href="#learning"><span>03</span><b>Как проходит обучение</b></a>
-          <a href="#levels"><span>04</span><b>С каким уровнем прийти</b></a>
-          <a href="#about"><span>05</span><b>Обо мне</b></a>
-          <a href="#formats"><span>06</span><b>Форматы и цены</b></a>
-          <a href="#diagnostic"><span>07</span><b>Подобрать формат</b></a>
+          <a href="#approach"><span>01</span><b>Мой подход</b><em aria-hidden="true"></em></a>
+          <a href="#quests"><span>02</span><b>Авторские квесты</b><em aria-hidden="true"></em></a>
+          <a href="#learning"><span>03</span><b>Как проходит обучение</b><em aria-hidden="true"></em></a>
+          <a href="#levels"><span>04</span><b>С каким уровнем прийти</b><em aria-hidden="true"></em></a>
+          <a href="#about"><span>05</span><b>Обо мне</b><em aria-hidden="true"></em></a>
+          <a href="#formats"><span>06</span><b>Форматы и цены</b><em aria-hidden="true"></em></a>
+          <a href="#diagnostic"><span>07</span><b>Подобрать формат</b><em aria-hidden="true"></em></a>
         </nav>
         <a class="btn btn-dark menu-telegram" href="https://t.me/irabolachkova" target="_blank" rel="noreferrer">Написать @irabolachkova ↗</a>
       </aside>
@@ -834,7 +990,7 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
       <section class="approach" id="approach">
         <div class="shell approach-grid">
           <div class="approach-copy">
-            <p class="kicker reveal">01 / мой подход</p>
+            <p class="kicker reveal">Глава 01 · мой подход</p>
             <h2 class="display h-section reveal">Квест начинается там, где обычно <em>исчезает речь</em></h2>
             <p class="lead reveal">Можно знать правило и всё равно замолчать, когда нужно быстро ответить, уточнить или отстоять свою версию. В моих квестах у речи появляется причина — без неё история не продолжится.</p>
             <p class="lead reveal">Это погружение в живой язык: не повторить готовую реплику, а самому решить, что сказать дальше.</p>
@@ -866,10 +1022,29 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
       <section class="quests" id="quests">
         <div class="shell quests-intro">
           <div>
-            <p class="kicker reveal">02 / авторские квесты</p>
+            <p class="kicker reveal">Глава 02 · авторские квесты</p>
             <h2 class="display reveal">Вы не выполняете задание. Вы пытаетесь <em>разобраться</em></h2>
           </div>
           <p class="reveal">Так пассивные знания превращаются в речь. Нужно задавать дополнительные вопросы, замечать противоречия, объяснять подозрения и договариваться с командой — живым английским, а не фразой из рамки.</p>
+        </div>
+
+        <div class="shell demo" id="demo" hidden>
+          <div class="demo-head reveal">
+            <p class="kicker">Мини-сцена · демо</p>
+            <h3 class="display">Попробуйте сами: <em>допрос свидетеля</em></h3>
+            <p>Так устроена одна сцена квеста: персонаж отвечает, а вы решаете, что спросить дальше. Выбирайте реплику<span class="kbd-hint"> мышкой или клавишами <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd></span>.</p>
+          </div>
+          <div class="game-window reveal" role="group" aria-label="Мини-сцена: допрос свидетеля">
+            <div class="game-bar"><span>Ravenhill · демо-сцена</span><span class="game-stats"><span>Улики <b id="demo-clues">0</b>/2</span><span>Speaking XP <b id="demo-xp">0</b></span></span></div>
+            <div class="game-scene">
+              <div class="npc"><span class="npc-avatar" aria-hidden="true">H</span><div><b>Mrs. Holloway</b><small>экономка особняка</small></div></div>
+              <p class="npc-line" id="demo-line" aria-hidden="true"></p>
+              <p class="sr-only" id="demo-live" aria-live="polite"></p>
+              <div class="demo-choices" id="demo-choices" tabindex="-1" aria-label="Варианты ответа"></div>
+              <p class="demo-hint" id="demo-hint" aria-live="polite"></p>
+              <div class="demo-end" id="demo-end" hidden><button class="btn btn-cream" id="demo-restart" type="button">Сыграть ещё раз ↺</button><a class="link-arrow" href="#diagnostic">Хочу так на занятиях →</a></div>
+            </div>
+          </div>
         </div>
 
         <article class="shell project project-raven">
@@ -932,7 +1107,7 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
       <section class="learning" id="learning">
         <div class="shell learning-head">
           <div>
-            <p class="kicker reveal">03 / обучение</p>
+            <p class="kicker reveal">Глава 03 · обучение</p>
             <h2 class="display h-section reveal">За игровыми мирами стоит <em>система</em></h2>
           </div>
           <p class="lead reveal">Не каждый урок — квест. Основа программы остаётся последовательной: современный учебник, интерактивная платформа и понятный маршрут.</p>
@@ -963,13 +1138,13 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
       <!-- 04 / Levels -->
       <section class="levels" id="levels">
         <div class="shell levels-box reveal">
-          <p class="kicker">04 / можно прийти</p>
+          <p class="kicker">Глава 04 · выбор уровня</p>
           <h2 class="levels-title"><span class="pink">A0</span><span class="bridge" aria-hidden="true"></span><span class="pink">C1</span><span>с любой точки</span></h2>
           <p class="levels-sub">Неважно, с какого уровня вы начинаете, — маршрут подстраивается под вас.</p>
           <div class="levels-grid">
-            <article><span>A0</span><h3>Начинаю с нуля</h3><p>Спокойно выстроим базу и начнём использовать язык с первых тем.</p></article>
-            <article><span>↺</span><h3>Возвращаюсь</h3><p>Найдём, что сохранилось, и не будем повторять всё подряд.</p></article>
-            <article><span>→</span><h3>Хочу свободнее</h3><p>Активируем знания и усложним естественную речь.</p></article>
+            <article><span>A0</span><h3>Начинаю с нуля</h3><p>Спокойно выстроим базу и начнём использовать язык с первых тем.</p><button class="level-pick" type="button" data-level="Начинаю с нуля">Это про меня</button></article>
+            <article><span>↺</span><h3>Возвращаюсь</h3><p>Найдём, что сохранилось, и не будем повторять всё подряд.</p><button class="level-pick" type="button" data-level="Учила раньше, многое забылось">Это про меня</button></article>
+            <article><span>→</span><h3>Хочу свободнее</h3><p>Активируем знания и усложним естественную речь.</p><button class="level-pick" type="button" data-level="Понимаю, но сложно говорить">Это про меня</button></article>
           </div>
         </div>
       </section>
@@ -978,7 +1153,7 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
       <section class="about" id="about">
         <div class="shell">
           <div class="about-head">
-            <p class="kicker reveal">05 / обо мне</p>
+            <p class="kicker reveal">Глава 05 · обо мне</p>
             <h2 class="display h-section reveal">Преподаватель, который однажды начал <em>строить целые миры</em></h2>
           </div>
           <div class="about-grid">
@@ -1007,7 +1182,7 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
       <section class="formats" id="formats">
         <div class="shell formats-head">
           <div>
-            <p class="kicker reveal">06 / форматы и цены</p>
+            <p class="kicker reveal">Глава 06 · форматы и цены</p>
             <h2 class="display h-section reveal">Выбрать свою <em>точку входа</em></h2>
           </div>
           <p class="reveal">Все занятия проходят онлайн. Не знаете, что подойдёт, — ответьте на четыре вопроса ниже.</p>
@@ -1025,12 +1200,13 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
       <section class="diagnostic" id="diagnostic">
         <div class="shell diagnostic-grid">
           <div class="diagnostic-intro reveal">
-            <p class="kicker">07 / мини-диагностика</p>
+            <p class="kicker">Глава 07 · создание персонажа</p>
             <h2 class="display">Найдём ваш формат за четыре вопроса</h2>
             <p>Это не тест и не экзамен. Ответы останутся в браузере, пока вы сами не решите отправить их мне.</p>
             <span class="hand-arrow" aria-hidden="true">займёт минуту →</span>
           </div>
           <form id="diagnostic-form" class="diagnostic-form reveal">
+            <div class="quiz-head"><span id="quiz-step" aria-live="polite">Шаг 1 из 4</span><span class="quiz-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>
             <fieldset><legend><span>01</span> Как сейчас с английским?</legend><div class="choices">
               <label><input type="radio" name="level" value="Начинаю с нуля" /><span>Начинаю с нуля</span></label><label><input type="radio" name="level" value="Учила раньше, многое забылось" /><span>Учила раньше</span></label><label><input type="radio" name="level" value="Понимаю, но сложно говорить" /><span>Понимаю, но молчу</span></label><label><input type="radio" name="level" value="Продолжаю и хочу двигаться дальше" /><span>Хочу двигаться дальше</span></label>
             </div></fieldset>
@@ -1043,44 +1219,53 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
             <fieldset><legend><span>04</span> Как комфортнее заниматься?</legend><div class="choices">
               <label><input type="radio" name="format" value="Индивидуально" /><span>Один на один</span></label><label><input type="radio" name="format" value="В паре" /><span>В паре</span></label><label><input type="radio" name="format" value="В мини-группе" /><span>В группе</span></label><label><input type="radio" name="format" value="Хочу посоветоваться" /><span>Хочу посоветоваться</span></label>
             </div></fieldset>
+            <div class="quiz-nav"><button class="btn btn-ghost" id="quiz-back" type="button">← Назад</button><button class="btn btn-dark" id="quiz-next" type="button">Дальше →</button></div>
             <button class="btn btn-dark form-submit" type="submit">Получить рекомендацию <span aria-hidden="true">→</span></button>
             <p class="form-error" id="form-error" role="alert"></p>
-            <div class="form-result" id="result-card" hidden><span class="result-kicker">Ваша точка входа</span><h3 id="result-title"></h3><p id="result-copy"></p><div class="result-actions"><a href="https://t.me/irabolachkova" target="_blank" rel="noreferrer">Открыть Telegram ↗</a><button id="copy-result" type="button">Скопировать заявку</button><button id="share-result" type="button">Поделиться</button></div></div>
+            <div class="form-result" id="result-card" hidden><span class="result-kicker">Персонаж создан · ваша точка входа</span><h3 id="result-title" tabindex="-1"></h3><p id="result-copy"></p><ul class="result-summary" id="result-summary" aria-label="Ваши ответы"></ul><div class="result-actions"><a href="https://t.me/irabolachkova" target="_blank" rel="noreferrer">Открыть Telegram ↗</a><button id="copy-result" type="button">Скопировать заявку</button><button id="share-result" type="button">Поделиться</button><button id="quiz-restart" type="button">Пройти заново ↺</button></div></div>
           </form>
         </div>
       </section>
     </main>
+
+    <div class="hud is-hidden" id="hud" inert>
+      <button class="hud-map" id="hud-map" type="button" aria-controls="site-menu" aria-expanded="false" aria-label="Открыть карту сайта">
+        <span class="hud-label"><span>Глава </span><b id="hud-num">01</b></span>
+        <span class="hud-title" id="hud-title">Подход</span>
+        <span class="hud-bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      </button>
+      <a class="hud-cta" href="#diagnostic">Подобрать формат <span aria-hidden="true">→</span></a>
+    </div>
 
     <footer><div class="shell footer-grid"><b>Ира Болачкова</b><p>English Quest Studio · онлайн-занятия для взрослых · A0–C1</p><a href="https://t.me/irabolachkova" target="_blank" rel="noreferrer">@irabolachkova ↗</a></div></footer>
 
     <script>
 (() => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const progress = document.querySelector('#scroll-progress');
-  const form = document.querySelector('#diagnostic-form');
-  const result = document.querySelector('#result-card');
-  const error = document.querySelector('#form-error');
-  const resultTitle = document.querySelector('#result-title');
-  const resultCopy = document.querySelector('#result-copy');
-  const shareButton = document.querySelector('#share-result');
-  const copyButton = document.querySelector('#copy-result');
-  let applicationText = '';
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const scrollBehavior = reduceMotion ? 'auto' : 'smooth';
 
-  const syncScroll = () => {
-    const available = document.documentElement.scrollHeight - window.innerHeight;
-    const ratio = available > 0 ? window.scrollY / available : 0;
-    if (progress) progress.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
+  /* ---------- Achievements ---------- */
+  const toasts = $('#toasts');
+  const unlocked = new Set();
+  const achieve = (id, title, text, icon = '✦') => {
+    if (!toasts || unlocked.has(id)) return;
+    unlocked.add(id);
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = '<span class="toast-icon" aria-hidden="true"></span><div><small>Достижение открыто</small><b></b><span class="t"></span></div>';
+    toast.querySelector('.toast-icon').textContent = icon;
+    toast.querySelector('b').textContent = title;
+    toast.querySelector('.t').textContent = text;
+    toasts.append(toast);
+    window.setTimeout(() => {
+      toast.classList.add('out');
+      window.setTimeout(() => toast.remove(), 400);
+    }, 4200);
   };
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(() => { syncScroll(); ticking = false; });
-  }, { passive: true });
-  window.addEventListener('resize', syncScroll);
-  syncScroll();
 
-  // Content is always visible; the entrance animation is progressive enhancement.
+  /* ---------- Entrance animation (content is always visible without it) ---------- */
   if (!reduceMotion && 'IntersectionObserver' in window && Element.prototype.animate) {
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
@@ -1092,51 +1277,332 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
         observer.unobserve(entry.target);
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
-    document.querySelectorAll('.reveal').forEach((item) => {
-      const rect = item.getBoundingClientRect();
-      if (rect.top > window.innerHeight) revealObserver.observe(item);
+    $$('.reveal').forEach((item) => {
+      if (item.getBoundingClientRect().top > window.innerHeight) revealObserver.observe(item);
     });
   }
 
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener('click', (event) => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (!target) return;
-      event.preventDefault();
-      target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-    });
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    const target = link.getAttribute('href') === '#top' ? document.body : $(link.getAttribute('href'));
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
   });
 
-  const menuToggle = document.querySelector('#menu-toggle');
-  const menuPanel = document.querySelector('#site-menu');
-  const menuClose = document.querySelector('#menu-close');
-  const setMenuOpen = (open, restoreFocus = true) => {
-    if (!menuPanel || !menuToggle) return;
+  /* ---------- Map (menu) ---------- */
+  const menuPanel = $('#site-menu');
+  const menuClose = $('#menu-close');
+  const menuTriggers = [$('#menu-toggle'), $('#hud-map')].filter(Boolean);
+  let lastTrigger = null;
+  const setMenuOpen = (open, trigger = null, restoreFocus = true) => {
+    if (!menuPanel) return;
+    if (open) lastTrigger = trigger;
     menuPanel.hidden = !open;
-    menuToggle.setAttribute('aria-expanded', String(open));
+    menuTriggers.forEach((button) => button.setAttribute('aria-expanded', String(open)));
     document.body.classList.toggle('menu-open', open);
     if (open) menuClose?.focus();
-    if (!open && restoreFocus) menuToggle.focus();
+    else if (restoreFocus) lastTrigger?.focus();
   };
-  menuToggle?.addEventListener('click', () => setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true'));
+  menuTriggers.forEach((button) => button.addEventListener('click', () => setMenuOpen(button.getAttribute('aria-expanded') !== 'true', button)));
   menuClose?.addEventListener('click', () => setMenuOpen(false));
-  menuPanel?.querySelectorAll('[data-menu-close]').forEach((control) => control.addEventListener('click', () => setMenuOpen(false)));
-  menuPanel?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenuOpen(false, false)));
+  $$('[data-menu-close]', menuPanel).forEach((control) => control.addEventListener('click', () => setMenuOpen(false)));
+  $$('a', menuPanel).forEach((link) => link.addEventListener('click', () => setMenuOpen(false, null, false)));
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && menuPanel && !menuPanel.hidden) setMenuOpen(false);
   });
 
+  /* ---------- HUD: chapter, progress and visited chapters ---------- */
+  const chapters = [
+    ['approach', 'Подход'],
+    ['quests', 'Квесты'],
+    ['learning', 'Обучение'],
+    ['levels', 'Уровень'],
+    ['about', 'Обо мне'],
+    ['formats', 'Цены'],
+    ['diagnostic', 'Диагностика']
+  ];
+  const hud = $('#hud');
+  const hudNum = $('#hud-num');
+  const hudTitle = $('#hud-title');
+  const hudBars = $$('.hud-bar i');
+  const navLinks = $$('.nav-links a');
+  const mapLinks = $$('.menu-sheet nav a');
+  const mapCount = $('#map-count');
+  const visited = new Set();
+  let current = 'intro';
+  let demoInView = false;
+  const smallScreen = window.matchMedia('(max-width: 600px)');
+
+  const renderChapters = () => {
+    const index = chapters.findIndex(([id]) => id === current);
+    if (index >= 0) {
+      hudNum.textContent = String(index + 1).padStart(2, '0');
+      hudTitle.textContent = chapters[index][1];
+    }
+    hudBars.forEach((bar, i) => {
+      bar.classList.toggle('now', i === index);
+      bar.classList.toggle('done', i !== index && visited.has(chapters[i][0]));
+    });
+    mapLinks.forEach((link) => {
+      const id = link.hash.slice(1);
+      link.classList.toggle('current', id === current);
+      link.classList.toggle('visited', id !== current && visited.has(id));
+      if (id === current) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    if (mapCount) mapCount.innerHTML = `Открыто <b>${visited.size}</b> из ${chapters.length} глав`;
+    navLinks.forEach((link) => link.classList.toggle('active', link.hash === `#${current}`));
+    // On phones the HUD would cover the dialogue choices, so it steps aside during the scene.
+    const hideHud = index < 0 || current === 'diagnostic' || (demoInView && smallScreen.matches);
+    if (hud) {
+      hud.classList.toggle('is-hidden', hideHud);
+      hud.inert = hideHud;
+    }
+  };
+
   if ('IntersectionObserver' in window) {
-    const navLinks = [...document.querySelectorAll('.nav-links a')];
-    const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
-    const sectionObserver = new IntersectionObserver((entries) => {
+    const chapterObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+        current = entry.target.id;
+        if (chapters.some(([id]) => id === current)) visited.add(current);
+        if (current === 'quests') achieve('quests', 'Новая локация', 'Вы открыли авторские квесты', '⌖');
+        renderChapters();
       });
-    }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
-    sections.forEach((section) => sectionObserver.observe(section));
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    $$('main > section[id]').forEach((section) => chapterObserver.observe(section));
   }
+  renderChapters();
+
+  /* ---------- Playable scene ---------- */
+  const demo = $('#demo');
+  if (demo) {
+    demo.hidden = false;
+    const gameWindow = $('.game-window', demo);
+    const sceneImage = $('.project-raven img');
+    if (gameWindow && sceneImage) gameWindow.style.setProperty('--scene', `url("${sceneImage.getAttribute('src')}")`);
+
+    const lineEl = $('#demo-line');
+    const liveEl = $('#demo-live');
+    const choicesEl = $('#demo-choices');
+    const hintEl = $('#demo-hint');
+    const endEl = $('#demo-end');
+    const cluesEl = $('#demo-clues');
+    const xpEl = $('#demo-xp');
+
+    const confront = [
+      { text: 'Wait — that doesn’t add up.', next: 'endAddUp', hint: '✓ Вы заметили противоречие — главный навык и детектива, и собеседника.' },
+      { text: 'Here’s what I think: someone changed the time.', next: 'endTheory', hint: '✓ Вы выдвинули версию и объяснили её своими словами.' },
+      { text: 'Nice clock.', hint: 'Сюжет стоит на месте. Попробуйте заметить противоречие.' }
+    ];
+    const scene = {
+      start: {
+        line: 'I was in the library all evening, detective. I heard the clock strike ten — and then Miss Eleanor was gone.',
+        choices: [
+          { text: 'Could you clarify — which clock?', next: 'clock', hint: '✓ Уточняющий вопрос — и у свидетеля появилась новая деталь.' },
+          { text: 'Where were you at 10:05?', next: 'time', hint: '✓ Точный вопрос о времени — версия свидетеля начинает трещать.' },
+          { text: 'OK. Thank you.', hint: 'Разговор оборвался — так улику не найти. Попробуйте переспросить.' }
+        ]
+      },
+      clock: { line: 'The old one in the hall. Strange… it struck ten twice that night.', choices: confront },
+      time: { line: 'Still in the library. Well… I think so. The clock said ten, but it felt much later.', choices: confront },
+      endAddUp: { line: 'You’re right… Unless someone turned the hands back. And only the family has the key to that clock.' },
+      endTheory: { line: 'Then whoever did it knew this house very well. Only the family has the key to that clock.' }
+    };
+
+    let clues = 0;
+    let xp = 0;
+    let typingTimer = null;
+    let finishTyping = null;
+    let started = false;
+
+    const bump = (el, value) => {
+      el.textContent = value;
+      el.classList.remove('bump');
+      void el.offsetWidth;
+      el.classList.add('bump');
+    };
+    const setHint = (text, warn = false) => {
+      hintEl.textContent = text;
+      hintEl.classList.toggle('warn', warn);
+    };
+    const type = (text, done) => {
+      window.clearInterval(typingTimer);
+      liveEl.textContent = text;
+      finishTyping = () => {
+        window.clearInterval(typingTimer);
+        finishTyping = null;
+        lineEl.textContent = text;
+        lineEl.classList.remove('typing');
+        done();
+      };
+      if (reduceMotion) { finishTyping(); return; }
+      let shown = 0;
+      lineEl.textContent = '';
+      lineEl.classList.add('typing');
+      typingTimer = window.setInterval(() => {
+        shown += 1;
+        lineEl.textContent = text.slice(0, shown);
+        if (shown >= text.length) finishTyping();
+      }, 22);
+    };
+    const renderChoices = (choices) => {
+      choicesEl.replaceChildren(...choices.map((choice, i) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.innerHTML = `<kbd>${i + 1}</kbd><span></span>`;
+        button.querySelector('span').textContent = choice.text;
+        button.addEventListener('click', () => pick(choice, button));
+        return button;
+      }));
+    };
+    const pick = (choice, button) => {
+      if (!choice.next) {
+        button.disabled = true;
+        setHint(choice.hint, true);
+        return;
+      }
+      clues += 1;
+      xp += 15;
+      bump(cluesEl, clues);
+      bump(xpEl, xp);
+      setHint(choice.hint);
+      go(choice.next);
+    };
+    const go = (key) => {
+      const node = scene[key];
+      choicesEl.replaceChildren();
+      type(node.line, () => {
+        if (node.choices) {
+          renderChoices(node.choices);
+          return;
+        }
+        endEl.hidden = false;
+        setHint(`Сцена пройдена: ${clues} улики, ${xp} XP. На занятии таких сцен — целый сюжет.`);
+        achieve('demo', 'Первый допрос', 'Две улики найдены на английском', '✓');
+      });
+    };
+    const start = () => {
+      if (started) return;
+      started = true;
+      go('start');
+    };
+
+    lineEl.addEventListener('click', () => finishTyping?.());
+    $('#demo-restart')?.addEventListener('click', () => {
+      clues = 0;
+      xp = 0;
+      cluesEl.textContent = '0';
+      xpEl.textContent = '0';
+      endEl.hidden = true;
+      setHint('');
+      go('start');
+      choicesEl.focus();
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          demoInView = entry.isIntersecting;
+          renderChapters();
+          if (entry.isIntersecting) start();
+        });
+      }, { threshold: 0.35 }).observe(gameWindow);
+    } else {
+      start();
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (!demoInView || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.target.closest('input, textarea, select') || (menuPanel && !menuPanel.hidden)) return;
+      const number = Number(event.key);
+      if (!number) return;
+      if (finishTyping) { finishTyping(); return; }
+      const button = choicesEl.children[number - 1];
+      if (button && !button.disabled) {
+        event.preventDefault();
+        button.click();
+      }
+    });
+  }
+
+  /* ---------- Diagnostic: step-by-step character creation ---------- */
+  const form = $('#diagnostic-form');
+  const result = $('#result-card');
+  const error = $('#form-error');
+  const shareButton = $('#share-result');
+  const copyButton = $('#copy-result');
+  const fields = ['level', 'goal', 'rhythm', 'format'];
+  let applicationText = '';
+
+  const steps = form ? $$('fieldset', form) : [];
+  const quizStep = $('#quiz-step');
+  const quizBars = $$('.quiz-bar i');
+  const backButton = $('#quiz-back');
+  const nextButton = $('#quiz-next');
+  let step = 0;
+  const answered = (fieldset) => Boolean($('input:checked', fieldset));
+  const firstOpenStep = () => {
+    const index = steps.findIndex((fieldset) => !answered(fieldset));
+    return index < 0 ? steps.length - 1 : index;
+  };
+  const showStep = (index, moveFocus = false) => {
+    if (!form?.classList.contains('is-stepped')) return;
+    step = Math.max(0, Math.min(steps.length - 1, index));
+    steps.forEach((fieldset, i) => fieldset.classList.toggle('is-active', i === step));
+    form.classList.toggle('is-last', step === steps.length - 1);
+    quizStep.textContent = `Шаг ${step + 1} из ${steps.length}`;
+    quizBars.forEach((bar, i) => {
+      bar.classList.toggle('now', i === step);
+      bar.classList.toggle('done', i !== step && answered(steps[i]));
+    });
+    backButton.disabled = step === 0;
+    nextButton.disabled = !answered(steps[step]);
+    if (moveFocus) ($('input:checked', steps[step]) || $('input', steps[step]))?.focus({ preventScroll: true });
+  };
+  const resetResult = () => {
+    form?.classList.remove('is-done');
+    if (result) result.hidden = true;
+  };
+
+  if (form && steps.length) {
+    form.classList.add('is-stepped');
+    $('.quiz-nav', form)?.append($('.form-submit', form));
+    showStep(0);
+
+    let lastPointer = 0;
+    form.addEventListener('pointerdown', () => { lastPointer = Date.now(); });
+    form.addEventListener('change', (event) => {
+      error.textContent = '';
+      showStep(step);
+      // Advance automatically only after a click or tap — never while arrow keys move through options.
+      const fieldset = event.target.closest('fieldset');
+      if (Date.now() - lastPointer < 800 && fieldset === steps[step] && step < steps.length - 1) {
+        window.setTimeout(() => { if (steps[step] === fieldset) showStep(step + 1); }, 320);
+      }
+    });
+    backButton.addEventListener('click', () => showStep(step - 1, true));
+    nextButton.addEventListener('click', () => showStep(step + 1, true));
+  }
+
+  const prefill = (name, value) => {
+    const radio = form?.querySelector(`input[name="${name}"][value="${value}"]`);
+    if (!radio) return;
+    radio.checked = true;
+    resetResult();
+    showStep(firstOpenStep());
+    $('#diagnostic')?.scrollIntoView({ behavior: scrollBehavior });
+  };
+  const planToFormat = {
+    'Разовое индивидуальное занятие': 'Индивидуально',
+    'Индивидуальный пакет': 'Индивидуально',
+    'Занятия в паре': 'В паре',
+    'Мини-группа': 'В мини-группе'
+  };
+  $$('.choose-plan').forEach((button) => button.addEventListener('click', () => prefill('format', planToFormat[button.dataset.plan])));
+  $$('.level-pick').forEach((button) => button.addEventListener('click', () => prefill('level', button.dataset.level)));
 
   const planContent = {
     'Индивидуально': {
@@ -1157,34 +1623,25 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
     }
   };
 
-  const planToFormat = {
-    'Разовое индивидуальное занятие': 'Индивидуально',
-    'Индивидуальный пакет': 'Индивидуально',
-    'Занятия в паре': 'В паре',
-    'Мини-группа': 'В мини-группе'
-  };
-  document.querySelectorAll('.choose-plan').forEach((button) => {
-    button.addEventListener('click', () => {
-      const radio = form?.querySelector(`input[name="format"][value="${planToFormat[button.dataset.plan]}"]`);
-      if (radio) radio.checked = true;
-      document.querySelector('#diagnostic')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
-    });
-  });
-
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
     const data = new FormData(form);
-    const fields = ['level', 'goal', 'rhythm', 'format'];
     if (fields.some((field) => !data.get(field))) {
       error.textContent = 'Выберите по одному варианту в каждом пункте.';
       result.hidden = true;
+      showStep(firstOpenStep(), true);
       return;
     }
     error.textContent = '';
     const format = data.get('format');
     const recommendation = planContent[format];
-    resultTitle.textContent = recommendation.title;
-    resultCopy.textContent = recommendation.copy;
+    $('#result-title').textContent = recommendation.title;
+    $('#result-copy').textContent = recommendation.copy;
+    $('#result-summary').replaceChildren(...['level', 'goal', 'rhythm'].map((field) => {
+      const item = document.createElement('li');
+      item.textContent = data.get(field);
+      return item;
+    }));
     applicationText = [
       'Здравствуйте! Хочу подобрать занятия по английскому.',
       '',
@@ -1193,8 +1650,17 @@ footer { padding: 34px 0 40px; color: rgba(244,236,223,.6); background: #161210;
       `Ритм: ${data.get('rhythm')}.`,
       `Формат: ${format}.`
     ].join('\n');
+    if (form.classList.contains('is-stepped')) form.classList.add('is-done');
     result.hidden = false;
-    result.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+    result.scrollIntoView({ behavior: scrollBehavior, block: 'nearest' });
+    $('#result-title').focus({ preventScroll: true });
+    achieve('diagnostic', 'Персонаж создан', 'Маршрут подобран — осталось написать мне', '★');
+  });
+
+  $('#quiz-restart')?.addEventListener('click', () => {
+    form.reset();
+    resetResult();
+    showStep(0, true);
   });
 
   shareButton?.addEventListener('click', async () => {
